@@ -28,7 +28,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                              ViewGroup container, Bundle savedInstanceState) {
         settingsViewModel =
                 ViewModelProviders.of(this).get(SettingsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        View root = inflater.inflate(R.layout.fragment_settings, container, false);
         final TextView textView = root.findViewById(R.id.text_notifications);
         settingsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

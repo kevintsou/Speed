@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_new);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Tool bar
         Toolbar toolbar = findViewById(R.id.toolbar);

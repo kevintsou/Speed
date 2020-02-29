@@ -8,12 +8,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = { ItemData.class }, version = 1,exportSchema = false)
-@TypeConverters({ItemDataTypeConverters.class})
-public abstract class ItemDatabase extends RoomDatabase {
-    private static final String DB_NAME = "ItemDatabase.db";
-    private static volatile ItemDatabase instance;
-    public static synchronized ItemDatabase getInstance(Context context) {
+@Database(entities = { ResultItem.class }, version = 1,exportSchema = false)
+@TypeConverters({ResultItemTypeConverters.class})
+public abstract class ResultItembase extends RoomDatabase {
+    private static final String DB_NAME = "ResultItemDatabase.db";
+    private static volatile ResultItembase instance;
+    public static synchronized ResultItembase getInstance(Context context) {
         if (instance == null) {
             instance = create(context);
             if(instance == null){
@@ -22,12 +22,12 @@ public abstract class ItemDatabase extends RoomDatabase {
         }
         return instance;
     }
-    private static ItemDatabase create(final Context context) {
+    private static ResultItembase create(final Context context) {
         return Room.databaseBuilder(
                 context,
-                ItemDatabase.class,
+                ResultItembase.class,
                 DB_NAME).build();
     }
-    public abstract ItemDataDao getItemDataDao();
+    public abstract ResultItemDao getItemDataDao();
 }
 

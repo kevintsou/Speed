@@ -1,5 +1,7 @@
 package com.kai.speed.ui.test;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kai.speed.R;
 import com.kai.speed.model.RecyclerViewClickListener;
 import com.kai.speed.model.TestViewAdapter;
+
 
 
 public class TestFragment extends Fragment {
@@ -56,9 +60,23 @@ public class TestFragment extends Fragment {
 
             }
         });
-
-
-
+        handlePreference(getActivity());
         return root;
+    }
+
+    private void handlePreference(Context context){
+        boolean isTaskShowWithoutDue, isNoteContentShow, isProgressShow;
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+            // Note Content
+            isNoteContentShow = preferences.getBoolean("note_content", true);
+            isProgressShow = preferences.getBoolean("progress_content", true);
+            isTaskShowWithoutDue = preferences.getBoolean("show_item_without_due", true);
+
+            Log.d("KTDBG", "[TEST] Preference, note content:" + isNoteContentShow +
+                    ", progress:" + isProgressShow +
+                    ", task show without due:" + isTaskShowWithoutDue);
+
     }
 }

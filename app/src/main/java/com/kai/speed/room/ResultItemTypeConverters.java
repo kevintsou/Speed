@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class ItemDataTypeConverters {
+public class ResultItemTypeConverters {
     @TypeConverter
     public static ArrayList<Long> fromString(String value) {
         Type listType = new TypeToken<ArrayList<Long>>() {}.getType();

@@ -3,11 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/item_relative">
         <item
-            android:id="@+id/act_edit_list"
+            android:id="@+id/act_delete_result"
+            android:orderInCategory="100"
+            android:title="Delete all result"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/act_sys_setting"
             android:orderInCategory="101"
             android:title="System Settings"
             app:showAsAction="never" />
 
+        <item
+            android:id="@+id/act_about"
+            android:orderInCategory="102"
+            android:title="About Speed"
+            app:showAsAction="never" />
     </group>
 
 

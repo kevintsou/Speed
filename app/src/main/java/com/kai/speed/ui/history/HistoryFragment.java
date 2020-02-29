@@ -37,7 +37,7 @@ public class HistoryFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerViewClickListener(getContext(), recyclerView, new RecyclerViewClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("KTDBG", "[Timeline] click pos:" + position);
+                Log.d("KTDBG", "[History] click pos:" + position);
             }
 
             @Override

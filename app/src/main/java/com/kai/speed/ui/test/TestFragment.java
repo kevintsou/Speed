@@ -42,7 +42,7 @@ public class TestFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerViewClickListener(getContext(), recyclerView, new RecyclerViewClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("KTDBG", "[Timeline] click pos:" + position);
+                Log.d("KTDBG", "[Test] click pos:" + position);
             }
 
             @Override

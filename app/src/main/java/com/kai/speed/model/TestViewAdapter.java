@@ -11,14 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kai.speed.R;
+import com.kai.speed.ui.test.TestViewModel;
 
 public class TestViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
-    private Integer mListChange;
+    private TestViewModel testViewModel;
 
-    public TestViewAdapter(Context context){
+    public TestViewAdapter(Context context, TestViewModel testViewModel){
         this.mContext = context;
+        this.testViewModel = testViewModel;
     }
 
     @NonNull
@@ -35,6 +37,15 @@ public class TestViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     // When the item show up, this func will be called
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ((TestItemViewHolder)holder).txTitle.setText(this.testViewModel.getTestItem(position));
+        //if((position % 2) != 0){
+        //    ((TestItemViewHolder) holder).txSpeed.setText(String.valueOf(this.testViewModel.getSpeed(position)) + "KB/s");
+        //}
+        //else {
+            ((TestItemViewHolder) holder).txSpeed.setText(String.valueOf(this.testViewModel.getSpeed(position)) + "MB/s");
+        //}
+        ((TestItemViewHolder)holder).progBarSpeed.setProgress(this.testViewModel.getSpeed(position));
+
     }
 
     @Override
@@ -61,12 +72,17 @@ public class TestViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    class TestItemType{
-        public static final int SEQ_READ_TYPE = 0;
-        public static final int RAN_READ_TYPE = 1;
-        public static final int SEQ_WRITE_TYPE = 2;
-        public static final int RAN_WRITE_TYPE = 3;
+    public class TestItemType{
+        public static final int SEQ_WRITE_TYPE = 0;
+        public static final int RAN_WRITE_TYPE = 1;
+        public static final int SEQ_READ_TYPE = 2;
+        public static final int RAN_READ_TYPE = 3;
         public static final int TEST_ITEM_TYPE_NUM = 4;
+
+        public static final String SEQ_WRITE_TITLE = "Seq Write";
+        public static final String RAN_WRITE_TITLE = "Random Write";
+        public static final String SEQ_READ_TITLE = "Seq Read";
+        public static final String RAN_READ_TITLE = "Random Read";
 
     }
 }

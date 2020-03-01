@@ -30,7 +30,7 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
-    Long startTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        // multi thread example
-        Calendar c = Calendar.getInstance();
-        startTime = c.getTimeInMillis();
         //new AsyncTaskWriteFile(this, 1, 64*1024).executeOnExecutor(Executors.newCachedThreadPool(), 2000);
         //new AsyncTaskSample(this, 2).executeOnExecutor(Executors.newCachedThreadPool(), 2000);
 
@@ -76,14 +73,4 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-
-    public void AsyncTaskCallback(int iteration){
-        Calendar c = Calendar.getInstance();
-        Long diff = c.getTimeInMillis() - startTime;
-        diff = (diff + 999)/1000;
-        Long speed = (Long)(((64*iteration) / diff));
-        //toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.primary));
-        toolbar.setTitle(speed + "MB/s, iteration:" + iteration + ", diff:" + diff);
-    }
 }

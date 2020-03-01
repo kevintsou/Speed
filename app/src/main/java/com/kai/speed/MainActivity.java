@@ -1,19 +1,36 @@
 package com.kai.speed;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
+import android.util.Log;
 import android.view.Menu;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kai.speed.async.AsyncTaskSample;
+import com.kai.speed.async.AsyncTaskWriteFile;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.Calendar;
+import java.util.concurrent.Executors;
+
 public class MainActivity extends AppCompatActivity {
+    Toolbar toolbar;
+    Long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_new);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Tool bar
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.primary_light));
         //toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.primary));
@@ -37,7 +54,19 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        new AsyncTaskSample(this).execute(100);
+        // multi thread example
+        Calendar c = Calendar.getInstance();
+        startTime = c.getTimeInMillis();
+        //new AsyncTaskWriteFile(this, 1, 64*1024).executeOnExecutor(Executors.newCachedThreadPool(), 2000);
+        //new AsyncTaskSample(this, 2).executeOnExecutor(Executors.newCachedThreadPool(), 2000);
+
+        // single thread
+        //new AsyncTaskSample(this, 1).executeOnExecutor(Executors.newSingleThreadExecutor(), 2000);
+        //new AsyncTaskSample(this, 2).executeOnExecutor(Executors.newSingleThreadExecutor(), 2000);
+
+        // single thread
+        //new AsyncTaskWriteFile(this, 1).execute(5000);
+        //new AsyncTaskSample(this, 2).execute(5000);
     }
 
     // Add OK button on the AppBar
@@ -45,5 +74,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main,menu);
         return true;
+    }
+
+
+
+    public void AsyncTaskCallback(int iteration){
+        Calendar c = Calendar.getInstance();
+        Long diff = c.getTimeInMillis() - startTime;
+        diff = (diff + 999)/1000;
+        Long speed = (Long)(((64*iteration) / diff));
+        //toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.primary));
+        toolbar.setTitle(speed + "MB/s, iteration:" + iteration + ", diff:" + diff);
     }
 }
